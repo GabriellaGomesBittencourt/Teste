@@ -1,0 +1,122 @@
+
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
+public class teste {
+
+  public static void main(String[] args) {
+
+    teste obj = new teste();
+    obj.run();
+
+  }
+
+  public void run() {
+	  String arquivoCSV = null;
+	  arquivoCSV = JOptionPane.showInputDialog("Informe o caminho absoluto do arquivo");
+  
+  
+    String invertida = new StringBuilder(arquivoCSV).reverse().toString();
+    int index1 = invertida.indexOf(".");
+    String caminho = invertida.substring(invertida.indexOf("."), invertida.length());
+    String nome = invertida.substring( index1 + 1, invertida.indexOf("\\"));
+    String desenvertida = new StringBuilder(nome).reverse().toString();  
+    String caminhodesenvertido = new StringBuilder(caminho).reverse().toString();  
+    BufferedReader br = null;
+    BufferedReader br2 = null;
+    String linha = "";
+    String linha2 = "";
+    String csvDivisor = ",";
+    String Textojson = "";
+    int l = 0;
+    int linhaM = 0;
+    int cont = 0;
+    int coluna = 0;
+    String[] car = null;
+    String[] car2 = null;
+    try {
+
+        br = new BufferedReader(new FileReader(arquivoCSV));
+        br2 = new BufferedReader(new FileReader(arquivoCSV));
+        while ((linha = br.readLine()) != null) {
+        	linhaM ++;        	
+            car = linha.split(csvDivisor);
+            coluna = car.length;        
+            	
+
+        }
+        
+        String m[][] = new String[linhaM][coluna];
+       
+        while ((linha2 = br2.readLine()) != null) {
+        	 
+        	  car2 = linha2.split(csvDivisor);
+        	 Textojson += ("{");
+        		for(int j = 0; j < coluna ; j++ ) {
+        			m[l][j] = car2[j];
+        			if(l > 0) {
+        				Textojson += ('"'+m[0][j] +'"' +  " : " + '"' + m[l][j] +'"'); 
+        			if(j < (coluna - 1)) {
+        				Textojson += (",");
+        			}
+        			}
+        			
+        			else
+        				if(cont == 0) {
+        					Textojson += ("\n"+'"'+desenvertida+'"'+": [\n");
+        				cont++;
+        				}
+        				
+        		}
+        		
+        		l++;
+        		if(l > 1 && l < linhaM) {
+        			Textojson += ("},\n");
+        		}
+        		
+        		if(l == linhaM) {
+        			Textojson += ("}");	
+        			Textojson += ("\n]}");	
+        		}
+        	
+        }
+        geraArquivo(Textojson, caminhodesenvertido);
+    	
+    
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    } finally {
+        if (br != null) {
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+  }
+  private void geraArquivo(String conteudo, String caminho) {
+		try {
+			FileWriter writer = new FileWriter(new File(caminho+"json"));  
+			PrintWriter saida = new PrintWriter(writer);
+			saida.print(conteudo);
+			saida.close();  
+			writer.close();
+			System.out.println("Arquivo criado com sucesso!");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+}
+}
