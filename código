@@ -1,3 +1,10 @@
+/* Para executar pela linha de comando:
+* 1- Use o comando cd seguido pelo nome da pasta de destino para sair do diretório atual.
+* 2- Após chegar ao diretório correto, você poderá compilar o arquivo digitando javac arquivo.java na linha de comando e pressionando ↵ Enter.(lembrando que você deve trocar "arquivo" pelo nome do arquivo do seu programa)
+* 3-Após isso basta ver se foi criado a class com o nome do seu arquivo (use o comando dir)
+* 4- Para executar basta colocar o código :
+* java (nome da classe sem o .class) "(caminho absoluto do seu arquivo csv)"
+* ex: java teste "C:\\Users\\cars.csv" */
 
 import java.io.BufferedReader;
 import java.io.File;
