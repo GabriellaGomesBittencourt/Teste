@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,19 +7,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-
 import javax.swing.JOptionPane;
 
 public class teste {
 
 	public static void main(String[] args) {
+		
+		System.out.print(args[0]);
 
 		teste obj = new teste();
-		obj.run();
+		obj.run(args[0]);
 
 	}
 
-	public void run() {
+	public void run(String args) {
 
 		// Declarando variaveis
 
@@ -45,7 +47,8 @@ public class teste {
 		// Lendo caminho absoluto informado
 
 		try {
-			arquivoCSV = JOptionPane.showInputDialog("Informe o caminho absoluto do arquivo");
+			arquivoCSV = args;
+					//JOptionPane.showInputDialog("Informe o caminho absoluto do arquivo");
 
 			// Pegando caminho para salvar arquivo Json e o nome do arquivo
 
@@ -60,8 +63,8 @@ public class teste {
 
 			/*
 			 * Passando valor do arquivo para a variavel e pegando o numero de linhas e
-			 * colunas para criar uma matriz e guardar os valores
-			 */
+			 * colunas para criar uma matriz e guardar os valores*/
+			 
 
 			while ((linha = br.readLine()) != null) {
 				linhaM++;
